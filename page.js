@@ -7,26 +7,32 @@ module.exports = {
     creditCardField: '#number.card-input',
     creditCardCVC: '#code.card-input',
     // Buttons
+    //Address and phone number modals
     callATaxiButton: 'button=Call a taxi',
     phoneNumberButton: '//div[starts-with(text(), "Phone number")]',
     nextButton: 'button=Next',
+    // Buttons related to payment modal
     confirmButton: 'button=Confirm',
     linkButton: 'button=Link',
-    closeButton: '/html/body/div/div/div[2]/div[2]/div[1]/button',
+    closeButton: '(//button[@class="close-button section-close"])[3]',
     creditCardButton: '.pp-text',
     addCreditCardButton: '//div[starts-with(text(), "Add card")]',
+    // Add message to driver
     messageButton: '//*[@id="comment"]',
-    optionsToggle: '/html/body/div/div/div[3]/div[3]/div[2]/div[2]/div[4]',
-    iceCreamToggle: '.counter-plus',
+    //Main order button
     orderButton: '.smart-button',
     // Supportive button
     tariffSelectiion: '//div[starts-with(text(), "Supportive")]',
+    orderReqToggle: '//div[@class="reqs open"]',
+    iceCreamToggle: '.counter-plus',
+    blanketAndHankey: '(//div[@class="r-sw-container"])[1]',
     // Modals
     phoneNumberModal: '.modal',
     addCreditCardModal: '.card-wrapper',
     carOrderModal: ".order-body",
-
-    blanketAndHankey: '/html/body/div/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[1]/div/div[2]/div/span',
+    driverInfo: ".order-subbody",
+    driverPhoto: "(//img[@alt='close'])[1]",
+    
    
     // Functions
     fillAddresses: async function(from, to) {
@@ -97,29 +103,32 @@ module.exports = {
         const linkButton = await $(this.linkButton);
         await linkButton.waitForDisplayed();
         await linkButton.click();
-    //close out modal
-        const closeButton = await $(this.closeButton);
-        await closeButton.click();
     },
     
     writeMessage: async function(message) {
         const messageButton = await $(this.messageButton);
+        await messageButton.waitForDisplayed();
         await messageButton.setValue(message);
     },
 
-    toggleOptions: async function() {
-        const optionsToggle = await $(this.optionsToggle);
-        await optionsToggle.waitForDisplayed();
-        await optionsToggle.click();
+    openOrderRequirements: async function() {
+        const orderReqToggle = await $(this.orderReqToggle);
+        await orderReqToggle.waitForDisplayed();
+    },
+
+    // addBlanketAndHankey: async function() {
+    //     const blanketAndHankey = await $(this.blanketAndHankey);
+    //     await blanketAndHankey.waitForDisplayed();
+    //     await blanketAndHankey.click();
+    // }, 
+
+    checkCheckbox: async function () {
         const blanketAndHankey = await $(this.blanketAndHankey);
-        await blanketAndHankey.waitForDisplayed();
-        await blanketAndHankey.click();
-    }, 
+        return blanketAndHankey.checked;
+    },
 
     orderIceCream: async function() {
         const iceCreamToggle = await $(this.iceCreamToggle);
-        await iceCreamToggle.waitForDisplayed();
-        await iceCreamToggle.click();
         await iceCreamToggle.click();
     },
 
