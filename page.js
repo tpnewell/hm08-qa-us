@@ -144,7 +144,7 @@ module.exports = {
         await this.fillAddresses('East 2nd Street, 601', '1300 1st St');
     },
 
-    selectSupportiveTariff: async function(tariff) {
+    selectSupportiveTariff: async function() {
         const tariffSelectiion = await $(this.tariffSelectiion);
         await tariffSelectiion.click();
     },
