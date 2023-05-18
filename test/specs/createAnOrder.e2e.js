@@ -4,8 +4,8 @@ const helper = require('../../helper')
 describe('Create an order', () =>  {
 // 1. Setting the address
     it('Should set the address', async () => {
-        await browser.url('/');
-        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
+        await page.setURLAndAddress();
+        //begin expect checks
         const fromField = await $(page.fromField);
         const toField = await $(page.toField);
         await expect(fromField).toHaveValue('East 2nd Street, 601');
@@ -14,17 +14,15 @@ describe('Create an order', () =>  {
 
 // 2. Selecting Supportive plan tariff
     it('Should select supportive plan', async () => {
-        await browser.url('/');
-        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
+        await page.setURLAndAddress();
         const tariffSelectiion = await $(page.tariffSelectiion);
-        await tariffSelectiion.click();
+        await page.selectSupportiveTariff();
         await expect(tariffSelectiion).toBeDisplayed();
     })
 
 // 3. Filling in the phone number
     it ('Should fill in the phone number and submit code to save', async () => {
-        await browser.url(`/`);
-        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
+        await page.setURLAndAddress();
         const phoneNumber = helper.getPhoneNumber("+1");
         await page.submitPhoneNumber(phoneNumber);
         const phoneNumberModal = await $(page.phoneNumberModal);
@@ -34,8 +32,7 @@ describe('Create an order', () =>  {
 
 // 4. Adding a credit card
     it ('Should add a credit card and save it', async () => {
-        await browser.url(`/`);
-        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');       
+        await page.setURLAndAddress();   
         await page.openCreditCard();
         const addCreditCardModal = await $(page.addCreditCardModal);
         const creditCardField = await $(page.creditCardField);
@@ -51,8 +48,7 @@ describe('Create an order', () =>  {
 
 // 5. Writing a message for the driver
     it ('Should write a message to the driver', async () => {
-        await browser.url(`/`);
-        await page.fillAddresses('East 2nd Street, 601', '1300 1st St'); 
+        await page.setURLAndAddress();
         await page.writeMessage('Message to driver');
         const messageButton = await $(page.messageButton);
         await expect(messageButton).toHaveValue('Message to driver');
@@ -60,11 +56,8 @@ describe('Create an order', () =>  {
 
 // 6. Ordering a Blanket and handkerchiefs
     it ('Should toggle Blankets and handkerchiefs', async () => {
-        await browser.url(`/`);
-        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
-        //Selecting correct tariff
-        const tariffSelectiion = await $(page.tariffSelectiion);
-        await tariffSelectiion.click();
+        await page.setURLAndAddress();
+        await page.selectSupportiveTariff();
         //Selecting blankets and handkerchiefs in window
         await page.openOrderRequirements();
         // await page.addBlanketAndHankey();
@@ -80,26 +73,19 @@ describe('Create an order', () =>  {
 
 // 7. Ordering 2 Ice creams
     it ('Should order 2 ice creams', async () => {
-        await browser.url(`/`);
-        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
-        //Selecting correct tariff
-        const tariffSelectiion = await $(page.tariffSelectiion);
+        await page.setURLAndAddress();
+        await page.selectSupportiveTariff();
         const iceCreamToggle = await $(page.iceCreamToggle);
-        await tariffSelectiion.click();
         // add 2 icecreams
         await page.orderIceCream();
         await page.orderIceCream();
-        
         await expect(iceCreamToggle).toHaveElementClass('disabled');
     })
 
 // 8. The car search modal appears
     it ('Should open car search modal', async () => {
-        await browser.url(`/`);
-        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
-        //select tariff
-        const tariffSelectiion = await $(page.tariffSelectiion);
-        await tariffSelectiion.click();
+        await page.setURLAndAddress();
+        await page.selectSupportiveTariff();
         //add number
         const phoneNumber = helper.getPhoneNumber("+1");
         await page.submitPhoneNumber(phoneNumber);
@@ -124,11 +110,8 @@ describe('Create an order', () =>  {
 
 // 9. Driver info appears
     it ('Should wait for driver info to appear', async () => {
-        await browser.url(`/`);
-        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
-        //select tariff
-        const tariffSelectiion = await $(page.tariffSelectiion);
-        await tariffSelectiion.click();
+        await page.setURLAndAddress();
+        await page.selectSupportiveTariff();
         //add number
         const phoneNumber = helper.getPhoneNumber("+1");
         await page.submitPhoneNumber(phoneNumber);
@@ -151,7 +134,6 @@ describe('Create an order', () =>  {
         await driverInfo.waitForExist({ timeout: 5000 });
         const driverPhoto = await $(page.driverPhoto);
         await expect(driverPhoto).toBeDisplayed();
-
     })
 
 })
