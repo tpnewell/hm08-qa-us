@@ -28,7 +28,7 @@ exports.config = {
 ],
     logLevel: 'error',
     bail: 0,
-    baseUrl: 'https://899d8720-c792-4c9b-a1ab-5fd6b1afd18d.serverhub.practicum-services.com',
+    baseUrl: 'https://10f3c571-4748-426e-bd91-bef2cc39cf64.serverhub.practicum-services.com',
     waitforTimeout: 10000,
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,

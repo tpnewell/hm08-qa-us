@@ -32,7 +32,6 @@ module.exports = {
     carOrderModal: ".order-body",
     driverInfo: ".order-subbody",
     driverPhoto: "(//img[@alt='close'])[1]",
-    
    
     // Functions
     fillAddresses: async function(from, to) {
@@ -137,5 +136,17 @@ module.exports = {
         await orderButton.click();
         const carOrderModal = await $(this.carOrderModal);
         await carOrderModal.waitForDisplayed();
-    }
+    }, 
+
+    //multiple uses
+    setURLAndAddress: async function() {
+        await browser.url('/');
+        await this.fillAddresses('East 2nd Street, 601', '1300 1st St');
+    },
+
+    selectSupportiveTariff: async function(tariff) {
+        const tariffSelectiion = await $(this.tariffSelectiion);
+        await tariffSelectiion.click();
+    },
+
 };
