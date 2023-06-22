@@ -1,6 +1,6 @@
 # Sprint 8 Project
 ## Project Summary
-This project includes automated testing for Urban Routes
+This project includes automated testing for the Urban Routes web app, which allows a user to order a taxi online. In the automation testing, I scripted my test to move through each "field" of fillable fields that are required in order to successfully place an order.
 ## Technologies and Techniques used
 Git and Github\
 WebdriverIO\
